@@ -2,7 +2,7 @@
 
 ```bash
 # пакеты для работы
-npm i express pg pg-hstore sequelize cors dotenv nodemon
+npm i express pg pg-hstore sequelize cors dotenv nodemon express-fileupload uuid
 ```
 
 ```js
