@@ -12,3 +12,9 @@ app.get('/', (req, res) => {
 })
 ```
 
+```bash
+# пакеты для работы авторизации
+npm i jsonwebtoken bcrypt
+```
+
+<!-- 56:51 -->
