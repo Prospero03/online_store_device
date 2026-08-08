@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const OtherLayout = () => {
+const AuthLayout = () => {
   return (
-    <main className='other-layout'>
+    <main className='auth-layout'>
         <Outlet/>
     </main>
   )
 }
 
-export default OtherLayout
+export default AuthLayout

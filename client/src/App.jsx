@@ -2,11 +2,11 @@ import React from 'react'
 import "./App.scss"
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
-import OtherLayout from './layouts/OtherLayout'
+import AuthLayout from './layouts/AuthLayout'
 import AdminLayout from './layouts/AdminLayout'
-import Home from './pages/Home'
-import Auth from './pages/Auth'
 import Dashboard from './pages/admin/Dashboard'
+import Home from './pages/Home'
+import Login from './pages/Login'
 
 const App = () => {
   return (
@@ -15,8 +15,8 @@ const App = () => {
         <Route path="/" element={<MainLayout/>}>
           <Route index element={<Home/>}/>
         </Route>
-        <Route path="/auth" element={<OtherLayout/>}>
-          <Route index element={<Auth/>}/>
+        <Route path="/login" element={<AuthLayout/>}>
+          <Route index element={<Login/>}/>
         </Route>
         <Route path="/admin" element={<AdminLayout/>}>
           <Route index element={<Dashboard/>}/>
