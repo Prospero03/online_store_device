@@ -1,6 +1,6 @@
-const ApiError = require("../error/ApiError")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { Op } = require('sequelize')
 const {User, Basket} = require('../models/models')
 
 
@@ -15,7 +15,12 @@ class userController {
             }
             
             const existingUser = await User.findOne({
-                $or: [{email}, {username}]
+                where: {
+                    [Op.or]: [
+                        { email },
+                        { username }
+                    ]
+                }
             });
                 
             if(existingUser){
@@ -27,7 +32,7 @@ class userController {
             const hashedPass = await bcrypt.hash(password, 10);
             const newUser = new User({ email, username, password:hashedPass});
             await newUser.save();
-                return res
+            return res
                 .status(200)
                 .json({success: true, message: "Вы успешно зарегистрировались"})
         } catch (error) {
@@ -48,8 +53,8 @@ class userController {
             }
             
             const existingUser = await User.findOne({
-                $or: [{email}]
-            });
+                where: { email }
+            })
 
             if(!existingUser){
                 return res
@@ -66,7 +71,7 @@ class userController {
 
             const token = jwt.sign(
                 {
-                    id: existingUser._id,
+                    id: existingUser.id,
                     email:existingUser.email,
                 },
                     process.env.JWT_SECRET,
@@ -74,6 +79,13 @@ class userController {
                     expiresIn: "30d", 
                 }
             );
+
+
+            if(existingUser.role === 'ADMIN'){
+                return res
+                .status(200)
+                .json({success:true, message: "Вы успешно вошли как администратор"})
+            }
             
             return res
             .status(200)
@@ -86,10 +98,17 @@ class userController {
         }
     }
 
-    async check(req,res,next){
+    async check(req,res){
         const {id} = req.query
         if(!id){
-            return next(ApiError.badRequest('Не задан ID'))
+            return res
+                .status(400)
+                .json({ success: false, message: 'Не задан ID' })
+        }
+        if(id){
+            return res
+                .status(200)
+                .json({ success: true, message: 'Задан ID' })
         }
         res.json(id)
     }

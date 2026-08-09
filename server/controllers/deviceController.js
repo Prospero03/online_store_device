@@ -1,11 +1,10 @@
 const uuid = require('uuid')
 const path = require('path')
 const {Device, DeviceInfo} = require('../models/models')
-const ApiError = require('../error/ApiError')
 
 
 class deviceController{
-    async create(req,res, next){
+    async create(req,res){
         try{
             let {name, price, brandId, typeId, info} = req.body
             const {img} = req.files
@@ -23,8 +22,10 @@ class deviceController{
 
             const device = await Device.create({name, price, brandId, typeId, img:fileName})
             return res.json(device)
-        }catch(e){
-            next(ApiError.badRequest(e.message))
+        }catch(error){
+            return res
+                .status(400)
+                .json({success:false, error:error})
         }
         
     }
