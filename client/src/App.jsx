@@ -7,6 +7,7 @@ import AdminLayout from './layouts/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 const App = () => {
   return (
@@ -15,8 +16,9 @@ const App = () => {
         <Route path="/" element={<MainLayout/>}>
           <Route index element={<Home/>}/>
         </Route>
-        <Route path="/login" element={<AuthLayout/>}>
-          <Route index element={<Login/>}/>
+        <Route element={<AuthLayout/>}>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<Signup/>}/>
         </Route>
         <Route path="/admin" element={<AdminLayout/>}>
           <Route index element={<Dashboard/>}/>
