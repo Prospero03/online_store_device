@@ -1,26 +1,32 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../store/authRoute';
 
 const Login = () => {
     const [Inputs, setInputs] = useState({
         email: '',
         password: '',
     });
+    const history = useNavigate();
+    const dispatch = useDispatch()
+    const server = useSelector((state)=> state.prod.link)
+
 
     const change = (e) =>{
         const {name, value} = e.target;
         setInputs({ ...Inputs, [name]:value});
     };
-
     const SubmitHandler = async(e) =>{
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8000/api/user/login",
+            const res = await axios.post(`${server}/api/user/login`,
                 Inputs,
                 {withCredentials: true}
             );
+            dispatch(authActions.login());
             console.log(res)
         } catch (error) {
             console.log(error)

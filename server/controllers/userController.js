@@ -80,12 +80,12 @@ class userController {
                 }
             );
 
-            // res.cookie("ApiReact", token,{
-            //     httpOnly: true,
-            //     maxAge: 30 * 24 * 60 * 60 * 1000,
-            //     secure: true,
-            //     sameSite: "None",
-            // })
+            res.cookie("ApiReact", token,{
+                httpOnly: true,
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                secure: true,
+                sameSite: "None",
+            })
 
             if(existingUser.role === 'ADMIN'){
                 return res

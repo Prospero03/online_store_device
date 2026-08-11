@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { useSelector } from 'react-redux';
 
 const Signup = () => {
     const [Inputs, setInputs] = useState({
@@ -8,7 +9,8 @@ const Signup = () => {
         email: "",
         password: "",
     });
-
+    const history = useNavigate();
+    const server = useSelector((state)=> state.prod.link)
     const change = (e) =>{
         const {name, value} = e.target;
         setInputs({ ...Inputs, [name]:value })
@@ -17,7 +19,7 @@ const Signup = () => {
     const SubmitHandler = async(e) =>{
         e.preventDefault();
             try {
-                const res = await axios.post("http://localhost:8000/api/user/registration",
+                const res = await axios.post(`${server}/api/user/registration`,
                     Inputs,
                     {withCredentials: true}
                 );

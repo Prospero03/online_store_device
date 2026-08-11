@@ -11,7 +11,6 @@ import Signup from './pages/Signup'
 
 const App = () => {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<MainLayout/>}>
           <Route index element={<Home/>}/>
@@ -24,7 +23,6 @@ const App = () => {
           <Route index element={<Dashboard/>}/>
         </Route>
       </Routes>
-    </Router>
   )
 }
 
