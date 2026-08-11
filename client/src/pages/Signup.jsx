@@ -19,7 +19,7 @@ const Signup = () => {
     const SubmitHandler = async(e) =>{
         e.preventDefault();
             try {
-                const res = await axios.post(`${server}/api/user/registration`,
+                const res = await axios.post(`${server}/api/user/sign-up`,
                     Inputs,
                     {withCredentials: true}
                 );

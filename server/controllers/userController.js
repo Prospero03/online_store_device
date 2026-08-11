@@ -5,7 +5,7 @@ const {User, Basket} = require('../models/models')
 
 
 class userController {
-    async registration(req,res,next) {
+    async register(req,res,next) {
         try {
             const {email, username, password} = req.body;
             if (!email || !username || !password){
@@ -117,6 +117,32 @@ class userController {
                 .json({ success: true, message: 'Задан ID' })
         }
         res.json(id)
+    }
+
+    // save cookie
+    async checkCookie(req,res){
+        try {
+            const token = req.cookies.ApiReact;
+            if (token) {
+                return res.status(200).json({message:true});
+            }
+            return res.status(200).json({message: false});
+        
+        } catch (error) {
+            return res.status(500).json({error: "Ошибка Сервера"})
+        }
+    }
+
+    // logout
+    async logout(req,res){
+        res.clearCookie("ApiReact",{
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            path: "/",
+        });
+
+    res.json({ message: "Вы успешно вышли"})
     }
 }
 
