@@ -144,6 +144,25 @@ class userController {
 
     res.json({ message: "Вы успешно вышли"})
     }
+
+    // profile
+    async profile(req,res){
+        try {
+        const {user} = req;
+            return res
+                    .status(200)
+                    .json({success: true, 
+                    data: {
+                        username: user.username,
+                        email: user.email,
+                        role: user.role
+                    }});
+        } catch (error) {
+            return res
+            .status(500)
+            .json({error: "Ошибка Сервера"})
+        }
+    }
 }
 
 module.exports = new userController()
